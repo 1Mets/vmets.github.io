@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Screenshare Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --bg-base:        #0a0c10;
+      --bg-surface:     #0f1217;
+      --bg-elevated:    #161b24;
+      --bg-hover:       #1c2230;
+      --border-subtle:  #1e2535;
+      --border-muted:   #252d3d;
+      --accent-primary: #4f8ef7;
+      --accent-glow:    rgba(79, 142, 247, 0.12);
+      --accent-gold:    #c9a84c;
+      --accent-gold-dim:#a08038;
+      --text-primary:   #e8eaf0;
+      --text-secondary: #8892a4;
+      --text-muted:     #525c6e;
+      --text-code:      #7dd3fc;
+      --green-soft:     #34d399;
+      --red-soft:       #f87171;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14.5px;
+      line-height: 1.7;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      padding: 40px 20px 60px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 48px 52px;
+      box-shadow: 0 0 0 1px var(--border-subtle), 0 24px 64px rgba(0,0,0,0.6);
+    }
+
+    /* ── Header ── */
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-muted);
+    }
+    h1::before {
+      content: "⬡ ";
+      color: var(--accent-primary);
+      font-size: 14px;
+    }
+    h1::after {
+      content: " ⬡";
+      color: var(--accent-primary);
+      font-size: 14px;
+    }
+
+    /* ── Section headings ── */
+    h2 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-top: 44px;
+      margin-bottom: 16px;
+      padding: 10px 14px;
+      background: var(--accent-glow);
+      border-left: 3px solid var(--accent-primary);
+      border-radius: 0 6px 6px 0;
+    }
+
+    h3 {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 24px;
+      margin-bottom: 10px;
+      padding-left: 10px;
+      border-left: 2px solid var(--border-muted);
+    }
+
+    h4 {
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Body text ── */
+    p {
+      color: var(--text-primary);
+      margin: 8px 0;
+    }
+
+    /* ── Lists ── */
+    ul, ol {
+      margin: 8px 0 14px 18px;
+      color: var(--text-primary);
+    }
+    li {
+      margin-bottom: 5px;
+      padding-left: 4px;
+    }
+    li::marker {
+      color: var(--text-muted);
+    }
+    ul ul, ol ol, ul ol, ol ul {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    /* ── Inline code ── */
+    code {
+      font-family: 'JetBrains Mono', 'Consolas', monospace;
+      font-size: 12.5px;
+      color: var(--text-code);
+      background: rgba(125, 211, 252, 0.07);
+      border: 1px solid rgba(125, 211, 252, 0.14);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* ── Blockquotes ── */
+    blockquote {
+      margin: 14px 0;
+      padding: 14px 18px;
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--border-muted);
+      border-radius: 0 8px 8px 0;
+      color: var(--text-secondary);
+      font-size: 13.5px;
+      line-height: 1.75;
+    }
+    blockquote strong {
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    /* ── Section notes ── */
+    .section-note {
+      display: inline-block;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    /* ── Strong emphasis inside body ── */
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    em {
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    /* ── Divider between major sections ── */
+    h2 + p, h2 + ul, h2 + ol {
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Screenshare Guide (Staff Only)</h1>
+
+  <h2 id="section-0">0. Before you start</h2>
+
+  <ul>
+    <li>Make sure you <strong>meet your server's requirements</strong> to perform screenshares (age, trust, technical knowledge, neutrality, etc.).</li>
+    <li>Confirm the <strong>server rules</strong> on what counts as proof and what bans are allowed; you must follow <em>their</em> standards, not your own.</li>
+    <li>Ensure you can <strong>record the entire screenshare</strong> (e.g. OBS), because recording protects both you and the player and is a key self‑defence mechanism.</li>
+    <li>Check that ping and connection are reasonable for both sides to avoid technical issues during the SS.</li>
+    <li>Have your SS toolkit ready and organized (folder structure, shortcuts, and any batch files/scripts you are allowed to use).</li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Keep a <strong>standard SS checklist</strong> open so you do not forget steps under pressure.</li>
+    <li>Test recording (audio, resolution, FPS) so footage is usable as evidence.</li>
+    <li>Use a <strong>consistent naming scheme</strong> for recordings/logs like <code>Player_Server_YYYY-MM-DD_SS.mp4</code>.</li>
+    <li>Ensure you have <strong>enough disk space</strong> for long recordings and exports.</li>
+    <li>Maintain a <strong>versioned toolkit</strong> (v1, v2…) so you know exactly what was used.</li>
+    <li>Before big events, run a <strong>self‑screenshare</strong> on your own PC to confirm everything works.</li>
+  </ul>
+
+  <h2 id="section-1">1. Ethical and procedural setup</h2>
+
+  <ul>
+    <li>Treat the SS as a <strong>targeted digital investigation</strong>, not a witch‑hunt; the goal is to <em>demonstrate</em> cheat usage or convincingly rule it out.</li>
+    <li>Never SS players you are directly playing against; ask another screensharer to handle those cases.</li>
+    <li>Do not allow <strong>player‑to‑player screenshares</strong>; only trusted staff/SS team members should screenshare.</li>
+    <li>Be transparent: explain you will follow a structured procedure and that everything is recorded.</li>
+    <li>Stay calm, professional, and neutral; do not provoke or mock the player.</li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Start with something like:<br>
+      <blockquote>
+        <strong>Staff:</strong> This is a formal screenshare; I'll follow our standard procedure and record everything for both your safety and mine.
+      </blockquote>
+    </li>
+    <li>Avoid early statements of guilt; say "we'll check your PC for anything against the rules" instead.</li>
+    <li>If the player is anxious, remind them cooperation and honesty help; you are not here to leak their private info.</li>
+    <li>If you are emotionally involved (you just fought them), <strong>hand the case off</strong>.</li>
+    <li>No harassment: no insults, threats, or "confess or longer ban" behaviour.</li>
+    <li>Follow specific policies for minors or players who clearly don't understand.</li>
+  </ul>
+
+  <h2 id="section-2">2. Technical setup with the player</h2>
+
+  <ul>
+    <li>Have the player join the <strong>official SS / support Discord</strong> made for screenshares, not random private DMs.</li>
+    <li>Use your approved remote‑access method (e.g. AnyDesk or Discord screenshare with control, depending on policy).</li>
+    <li>Confirm <strong>audio and video</strong> are working and recording captures everything.</li>
+    <li>Ask the player to <strong>close unrelated private windows</strong> if your policy requires it.</li>
+    <li>Confirm the <strong>Windows version and architecture</strong> (e.g. Windows 10/11, 64‑bit).</li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Ensure they share the <strong>full desktop</strong>, not one window.</li>
+    <li>Make sure you can see <strong>taskbar, system tray, and current time</strong>.</li>
+    <li>Ask to <strong>disconnect extra displays</strong> if they could be used to hide stuff (if rules allow).</li>
+    <li>Confirm they are on the <strong>same Windows user</strong> that plays on the server.</li>
+    <li>Ask them to temporarily exit fullscreen games and show the desktop.</li>
+    <li>Note all <strong>drives</strong> (C:, D:, etc.), as cheats can be hidden on secondary drives.</li>
+  </ul>
+
+  <h2 id="section-3">3. Phase One – quick artifact and trace check</h2>
+
+  <p>First Phase focuses on common, fast‑to‑check locations and artifacts.</p>
+
+  <p><strong>Goals:</strong></p>
+  <ul>
+    <li>Quickly find obvious cheats/loaders/tools.</li>
+    <li>Gather early <strong>proof of execution (POE)</strong> indicators.</li>
+  </ul>
+
+  <h3>3.1 Prefetch analysis (WinPrefetchView / PECmd)</h3>
+
+  <ol>
+    <li>Open <strong>WinPrefetchView</strong>.</li>
+    <li>Sort by <strong>Last Run Time</strong> and check executables run around suspicious times.</li>
+    <li>Look for:
+      <ul>
+        <li>Known clients/cheats.</li>
+        <li>Loader names.</li>
+        <li>Suspicious random‑looking names in weird paths.</li>
+      </ul>
+    </li>
+    <li>If it does not work properly, use <strong>PECmd</strong>:
+      <ul>
+        <li>Create a folder (e.g. <code>C:\Prefetch2</code>).</li>
+        <li>Copy relevant prefetch files into that folder.</li>
+        <li>Run PECmd on <code>C:\Prefetch2</code> and review parsed output.</li>
+      </ul>
+    </li>
+  </ol>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Watch <strong>run counts</strong>; many recent runs near the report time are very suspicious.</li>
+    <li>Write down <strong>exact names and paths</strong> in a note file.</li>
+    <li>Compare times with server logs (when they were fighting or setting off alerts).</li>
+    <li>Watch for legit‑looking names in <strong>non‑standard directories</strong> (deep Temp, odd locations).</li>
+    <li>Confirm Minecraft/Java prefetch entries match the <strong>claimed launcher and location</strong>.</li>
+    <li>If there is prefetch for a loader but no files now, plan to dig into <strong>USN/deletion traces</strong> later.</li>
+  </ul>
+
+  <h3>3.2 Temp, Recent Items, Deleted Items, Macros</h3>
+
+  <ol>
+    <li>Check key <strong>Temp</strong> directories (e.g. <code>AppData\Local\Temp</code>) for:
+      <ul>
+        <li>Extracted <code>.zip</code>/<code>.rar</code> contents.</li>
+        <li>Cheat‑like <code>.exe</code> files.</li>
+      </ul>
+    </li>
+    <li>Use <strong>Recent Items / Quick Access</strong> for:
+      <ul>
+        <li>Recently opened archives.</li>
+        <li>Recently opened <code>.jar</code>, <code>.exe</code>, <code>.bat</code> or loaders.</li>
+      </ul>
+    </li>
+    <li>Inspect the <strong>Recycle Bin</strong> for deleted cheat folders/archives/executables.</li>
+    <li>Check common <strong>macro locations</strong> for:
+      <ul>
+        <li>Macro scripts.</li>
+        <li>Config files (<code>.json</code>, <code>.xml</code>, <code>.ini</code>) for clickers/ghost clients.</li>
+      </ul>
+    </li>
+  </ol>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Sort by <strong>Date Modified</strong> to see what changed near suspicious gameplay.</li>
+    <li>Look for archives downloaded, extracted, then <strong>deleted and redownloaded</strong>.</li>
+    <li>Macro names referencing <strong>CPS, clicker, macro, combo</strong> etc. are suspect.</li>
+    <li>Check if macros are bound to <strong>mouse/keyboard software</strong> that the player uses.</li>
+    <li>Compare timestamps of archives or macros with when the player started performing unusually well.</li>
+    <li>In Recycle Bin, look for <strong>fresh deletions</strong> (minutes/hours before SS).</li>
+  </ul>
+
+  <h3>3.3 Immediate PowerShell script</h3>
+
+  <ol>
+    <li>Run your <strong>designated PowerShell SS script</strong>.</li>
+    <li>Let it gather:
+      <ul>
+        <li>Recent execution data.</li>
+        <li>Key directory/file summaries.</li>
+      </ul>
+    </li>
+    <li>Open the output (often <code>C:\ScreenShare\*.txt</code>).</li>
+    <li>Search for:
+      <ul>
+        <li>Client names.</li>
+        <li>Loader names.</li>
+        <li>Strange paths or hidden folders.</li>
+      </ul>
+    </li>
+  </ol>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Use the editor's <strong>search</strong> to jump through multiple cheat keywords quickly.</li>
+    <li>If timestamps exist, align them with suspicious play times.</li>
+    <li>Copy key lines into your notes for easy quoting later.</li>
+    <li>If script lists startup entries, cross‑check with Task Manager's <strong>Startup</strong> tab and Task Scheduler.</li>
+  </ul>
+
+  <h3>3.4 Quick process and folder inspection</h3>
+
+  <ul>
+    <li>Use <strong>Task Manager / System Informer</strong> to spot:
+      <ul>
+        <li>Suspicious processes.</li>
+        <li>Unknown overlays or injectors.</li>
+      </ul>
+    </li>
+    <li>Check main <strong>Minecraft / client directories</strong> for obvious hacked clients (if your rules say presence matters).</li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Look for <strong>multiple Java processes</strong> when only one is expected.</li>
+    <li>In System Informer, pay attention to <strong>unsigned or odd DLLs</strong> loaded into Minecraft or Java.</li>
+    <li>Confirm the <strong>launcher</strong> (vanilla, custom) matches their claim.</li>
+    <li>Check for recording/overlay apps known to be bundled with cheats.</li>
+  </ul>
+
+  <h3>3.4.1 Detailed check of javaw.exe with System Informer</h3>
+
+  <p>Use this when the player is on Minecraft (or any Java‑based client) and you want to inspect the running Java process for suspicious behaviour.</p>
+
+  <h4>Step 1 – Locate the correct javaw.exe process</h4>
+  <ul>
+    <li>Open <strong>System Informer</strong> on the player's PC.</li>
+    <li>Make sure Minecraft is running and they are in the same environment where they were suspected (e.g. on your server, same client).</li>
+    <li>In System Informer's <strong>Processes</strong> tab:
+      <ul>
+        <li>Click the column header "Name" to sort alphabetically if needed.</li>
+        <li>Look for <code>javaw.exe</code> (there can be more than one instance).</li>
+        <li>Right‑click each <code>javaw.exe</code> and select <strong>Properties</strong>.</li>
+        <li>In the <strong>Image</strong> or <strong>General</strong> tab, check:
+          <ul>
+            <li>The <strong>path</strong> (e.g. legitimate Java installation vs strange custom path).</li>
+            <li>The <strong>command line</strong>, if visible (should show the Minecraft launcher / arguments, not random suspicious flags).</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Identify which <code>javaw.exe</code> corresponds to the active Minecraft instance by:
+      <ul>
+        <li>Looking at the one using the most <strong>CPU</strong> and <strong>memory</strong> while they move in‑game.</li>
+        <li>Optionally asking them to briefly <strong>alt‑tab</strong> or pause the game and seeing which process reacts.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>Step 2 – Verify the javaw.exe path and integrity</h4>
+  <ul>
+    <li>From the <strong>Properties</strong> window of the suspected Minecraft <code>javaw.exe</code>:
+      <ul>
+        <li>Check that the <strong>file location</strong> is inside a normal Java or launcher directory (e.g. <code>C:\Program Files\Java\...</code> or a known launcher folder).</li>
+        <li>If the path is inside <code>Temp</code>, random folders, or a clearly custom directory, treat that as suspicious and note it.</li>
+        <li>Use the option to <strong>open file location</strong> from System Informer and visually inspect the folder:
+          <ul>
+            <li>Check for unusual DLLs or EXEs next to <code>javaw.exe</code>.</li>
+            <li>Look for names related to cheats, injectors, or loaders.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>Step 3 – Inspect modules (DLLs) loaded into javaw.exe</h4>
+  <ul>
+    <li>Right‑click the active Minecraft <code>javaw.exe</code> in System Informer and choose <strong>Properties</strong> (if closed).</li>
+    <li>Go to the <strong>Modules</strong> tab (or equivalent):
+      <ul>
+        <li>Scroll through the list of loaded DLLs.</li>
+        <li>Look for:
+          <ul>
+            <li>Modules with <strong>random or obfuscated names</strong> (e.g. meaningless characters).</li>
+            <li>DLLs located in <code>Temp</code> or other non‑standard folders.</li>
+            <li>Known cheat or injection framework names.</li>
+          </ul>
+        </li>
+        <li>If you find a suspicious module:
+          <ul>
+            <li>Right‑click the module and choose <strong>Properties</strong> or <strong>Open file location</strong>.</li>
+            <li>Note the full path, file name, and any version/company info shown.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>Step 4 – Inspect handles and threads (advanced)</h4>
+  <ul>
+    <li>In the same <code>javaw.exe</code> Properties window, look at:
+      <ul>
+        <li><strong>Threads</strong> tab:
+          <ul>
+            <li>Identify threads with unusual start addresses or belonging to unfamiliar modules.</li>
+            <li>Look for threads started from DLLs that you already flagged as suspicious.</li>
+          </ul>
+        </li>
+        <li><strong>Handles</strong> or equivalent views:
+          <ul>
+            <li>Check if <code>javaw.exe</code> is attached to strange device handles or other processes that don't match normal Minecraft behaviour.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Do not terminate threads or handles unless your server policy explicitly allows it; generally you are only <strong>observing</strong>, not changing the system.</li>
+  </ul>
+
+  <h4>Step 5 – Cross‑checking javaw.exe with other evidence</h4>
+  <ul>
+    <li>Take all information you saw in System Informer for <code>javaw.exe</code> and cross‑check with:
+      <ul>
+        <li><strong>Prefetch</strong>:
+          <ul>
+            <li>Does the same suspicious path or name appear in Prefetch entries?</li>
+            <li>How often and how recently was it run?</li>
+          </ul>
+        </li>
+        <li><strong>LastActivityView</strong>:
+          <ul>
+            <li>Do you see the suspicious Java executable being launched around the time of the suspicious gameplay?</li>
+          </ul>
+        </li>
+        <li><strong>USN / OSForensics</strong>:
+          <ul>
+            <li>Is there file activity (create/modify/delete) around the suspicious Java folder while they were playing?</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>If you find a strange Java path, unfamiliar DLLs injected into <code>javaw.exe</code>, and matching activity in Prefetch/LastActivityView/USN around suspicious times, treat these as potential <strong>POE elements</strong> and add them to your 3‑POE reasoning.</li>
+  </ul>
+
+  <h4>Step 6 – Documenting your javaw.exe findings</h4>
+  <ul>
+    <li>In your SS notes, write a small section such as:
+      <ul>
+        <li><strong>javaw.exe analysis:</strong></li>
+        <li>Path used: [full path].</li>
+        <li>Modules of interest: [list suspicious DLLs with paths].</li>
+        <li>Related activity:
+          <ul>
+            <li>Prefetch / LastActivityView / USN references.</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Take screenshots of System Informer windows (process list, modules, properties) if your server allows storing them as part of SS evidence.</li>
+  </ul>
+
+  <h3>3.5 Evaluate Phase One</h3>
+
+  <ul>
+    <li>If you already have strong, well‑documented indicators of executed cheats, you might be close to <strong>3‑POE</strong>.</li>
+    <li>If nothing obvious appears and you looked carefully, move to <strong>Phase Two</strong> (either legit or heavy bypass).</li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Pause and summarize to yourself:
+      <ul>
+        <li>"What strong evidence do I have?"</li>
+        <li>"What is still unclear?"</li>
+      </ul>
+    </li>
+    <li>Tag the situation as:
+      <ul>
+        <li>Very likely clean.</li>
+        <li>Suspicious but not proven.</li>
+        <li>Strongly pointing to cheats (needs Phase Two to confirm).</li>
+      </ul>
+    </li>
+    <li>Add this summary to your SS notes so reviewers see your reasoning.</li>
+  </ul>
+
+  <h2 id="section-4">4. Phase Two – deeper system investigation</h2>
+
+  <p>Use this when Phase One is clean or inconclusive.</p>
+
+  <p><strong>Goals:</strong></p>
+  <ul>
+    <li>Catch <strong>bypassers</strong> who cleaned surface traces.</li>
+    <li>Use overlapping sources (logs, tasks, forensic tools) to build or dismiss cheating.</li>
+  </ul>
+
+  <h3>4.1 Event Logs</h3>
+
+  <ul>
+    <li>Open <strong>Event Viewer</strong> and focus on key time windows.</li>
+    <li>Check <strong>Application</strong> and <strong>System</strong> logs for:
+      <ul>
+        <li>App starts/crashes.</li>
+        <li>Suspicious service behaviour.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Look for unknown executables that start or crash near suspicious matches.</li>
+    <li>If players blame "PC crashes" for weird behaviour, check if logs support that claim.</li>
+  </ul>
+
+  <h3>4.2 Task Scheduler</h3>
+
+  <ul>
+    <li>Open <strong>Task Scheduler</strong>.</li>
+    <li>Look for:
+      <ul>
+        <li>Random or meaningless task names.</li>
+        <li>Tasks launching from odd folders.</li>
+        <li>Tasks that run <strong>at login</strong> or <strong>startup</strong>.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Focus on tasks that run scripts or unknown <code>.exe</code> files from Temp or unusual directories.</li>
+    <li>Check <strong>triggers</strong> and <strong>actions</strong> of each suspicious task.</li>
+    <li>Look for recent creation/modification of tasks around suspicious sessions.</li>
+  </ul>
+
+  <h3>4.3 SearchEverything (or similar)</h3>
+
+  <ul>
+    <li>Use <strong>SearchEverything</strong> for:
+      <ul>
+        <li>Known cheat names.</li>
+        <li>Loader names.</li>
+        <li>Generic cheat and macro terms.</li>
+      </ul>
+    </li>
+    <li>Open locations and inspect names, timestamps, and relevant content.</li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Use multiple searches: client names, bypass names, generic terms.</li>
+    <li>Sort results by <strong>Date Modified</strong> to prioritise recent activity.</li>
+    <li>Try partial names and variants if cheats rebrand under similar patterns.</li>
+  </ul>
+
+  <h3>4.4 System Informer, Maceta, OSForensics, SherlockFinds</h3>
+
+  <ul>
+    <li>With <strong>System Informer</strong>:
+      <ul>
+        <li>Review processes/services/modules for unusual or injected elements.</li>
+      </ul>
+    </li>
+    <li>With <strong>OSForensics / similar tools</strong> (including Maceta‑like tools, SherlockFinds):
+      <ul>
+        <li>Inspect recent file system activity.</li>
+        <li>Correlate file creation/modification to cheat suspicion timeframes.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Sort by <strong>CPU/memory</strong> to spot unknown processes that stay active during gameplay.</li>
+    <li>Filter forensic views to <strong>last 24–72 hours</strong>.</li>
+    <li>Use internal search inside OSForensics‑type tools with your cheat keyword list.</li>
+  </ul>
+
+  <h3>4.5 USN Journal and LastActivityView</h3>
+
+  <ul>
+    <li>Use <strong>LastActivityView</strong> to see:
+      <ul>
+        <li>Timeline of executed programs/opened files.</li>
+        <li>Focus on just before and during suspicious gameplay.</li>
+      </ul>
+    </li>
+    <li>Use USN analysis (via forensic tools) to:
+      <ul>
+        <li>Track creation/renaming/deletion of cheat folders and files.</li>
+        <li>Detect "download → run → delete" patterns.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Typical suspicious sequence: download archive → extract → run exe → delete folder.</li>
+    <li>Rapid renaming of suspicious files is a red flag for evasive behaviour.</li>
+    <li>Combine LastActivityView, USN, Prefetch and server logs to build a <strong>unified timeline</strong>.</li>
+  </ul>
+
+  <h3>4.6 Browser and download traces (if allowed)</h3>
+
+  <ul>
+    <li>Check browser <strong>download history</strong> and <strong>Downloads</strong> folder for cheat archives/loaders.</li>
+    <li>Only check within your server's privacy rules.</li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Compare download times with Prefetch / LastActivityView execution times.</li>
+    <li>Look for repeated downloads of similar files (updating cheats, re‑trying bypasses).</li>
+    <li>Note contradictions like "never downloaded anything" vs. clear cheat downloads.</li>
+  </ul>
+
+  <h3>4.7 Checking browser downloads (per browser)</h3>
+
+  <p>Use these steps to properly review downloads per browser while respecting your server's privacy rules.</p>
+
+  <h4>4.7.1 Google Chrome / Chromium‑based (Chrome, Edge, Brave, etc.)</h4>
+  <ul>
+    <li>Ask the player which browser they used to download anything related to Minecraft or mods.</li>
+    <li>Open the browser (Chrome, Edge, Brave, etc.) on their PC.</li>
+    <li>Press <strong>Ctrl + J</strong> to open the <strong>Downloads</strong> page.</li>
+    <li>Scroll through recent downloads and look for:
+      <ul>
+        <li>Archives like <code>.zip</code>, <code>.rar</code>.</li>
+        <li>Executables <code>.exe</code>, <code>.jar</code>, <code>.bat</code>.</li>
+        <li>File names or URLs that reference clients, injectors, macros, or loaders.</li>
+      </ul>
+    </li>
+    <li>For any suspicious item:
+      <ul>
+        <li>Hover to see the original download URL if visible.</li>
+        <li>Click "Show in folder" (or similar) to open the file location if the file still exists.</li>
+        <li>Note the <strong>download date/time</strong> and the <strong>file path</strong>.</li>
+      </ul>
+    </li>
+    <li>Cross‑check suspicious download times with:
+      <ul>
+        <li>When the player first joined your server or started playing suspiciously.</li>
+        <li>Prefetch / LastActivityView times for corresponding executables.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>4.7.2 Firefox</h4>
+  <ul>
+    <li>Open <strong>Firefox</strong> on the player's PC.</li>
+    <li>Press <strong>Ctrl + J</strong> or click the downloads icon in the toolbar, then "Show all downloads".</li>
+    <li>Review the list for:
+      <ul>
+        <li>Cheat‑related file names, archives, or executables.</li>
+      </ul>
+    </li>
+    <li>Right‑click a download and choose "Open Containing Folder" (if available) to jump to the file.</li>
+    <li>Note:
+      <ul>
+        <li>Download name.</li>
+        <li>Download date/time.</li>
+        <li>File location on disk.</li>
+      </ul>
+    </li>
+    <li>Cross‑reference with:
+      <ul>
+        <li>Prefetch entries for that executable.</li>
+        <li>File creation/modification activity from USN/OSForensics.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>4.7.3 Other browsers</h4>
+  <ul>
+    <li>Most browsers have a <strong>Downloads</strong> section accessible via:
+      <ul>
+        <li>A downloads icon in the toolbar.</li>
+        <li>Keyboard shortcuts like <strong>Ctrl + J</strong> or a "History &gt; Downloads" menu.</li>
+      </ul>
+    </li>
+    <li>Once in the downloads view:
+      <ul>
+        <li>Repeat the same logic: find archives/executables and note times and paths.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p class="section-note">Important:</p>
+  <ul>
+    <li>Stay inside the <strong>downloads area</strong> and the related Downloads folder unless your server's policy allows deeper browsing.</li>
+    <li>Use download timestamps as part of your POE timeline when they match execution events and suspicious gameplay.</li>
+  </ul>
+
+  <h2 id="section-5">5. Applying the 3‑POE (Proof of Execution) idea</h2>
+
+  <ul>
+    <li>Focus on <strong>Proof of Execution</strong>, not just presence.</li>
+    <li>A client sitting unused on disk (e.g. Wurst, last used a week ago) alone is <strong>not enough</strong> unless your server says otherwise.</li>
+    <li>Look for independent <strong>execution‑related</strong> traces:
+      <ul>
+        <li>Prefetch: cheat executable ran at the relevant time.</li>
+        <li>LastActivityView: cheat/loader launched.</li>
+        <li>USN/OSForensics: cheat folder created/modified, files changed during play.</li>
+      </ul>
+    </li>
+    <li>Move towards a fail only when you have <strong>three independent POE items</strong> tied to a known cheat/loader and it fits your rules.</li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Write your POE clearly in notes, for example:
+      <ul>
+        <li>POE 1: Prefetch shows <code>client.exe</code> ran at [time].</li>
+        <li>POE 2: LastActivityView shows <code>client.exe</code> opened at [time].</li>
+        <li>POE 3: USN shows <code>client</code> folder created &amp; modified during that session.</li>
+      </ul>
+    </li>
+    <li>If you have two extremely strong POEs, check how your rules treat that, but do not improvise beyond them.</li>
+    <li>Distinguish <strong>historical cheating</strong> from cheating on your server; rules might handle these differently.</li>
+  </ul>
+
+  <h3>5.1 Step‑by‑step using LastActivityView for POE</h3>
+
+  <p>Use this to turn LastActivityView into clear POE entries you can write into your notes.</p>
+
+  <h4>Step 1 – Open LastActivityView and set timeframe</h4>
+  <ul>
+    <li>Launch <strong>LastActivityView</strong> on the player's PC.</li>
+    <li>Let it load the full activity list.</li>
+    <li>If available, configure it to show a reasonable timeframe (for example, last 24–72 hours), focusing on when the player was active on your server.</li>
+    <li>Sort by <strong>Date/Time</strong> in descending order so the newest entries are at the top.</li>
+  </ul>
+
+  <h4>Step 2 – Filter by relevant activity types</h4>
+  <ul>
+    <li>Check the activity type column (for example: "Run .EXE file", "Open file", "Software installation", etc.).</li>
+    <li>Focus mainly on:
+      <ul>
+        <li>Program executions.</li>
+        <li>Recently opened executables and archives.</li>
+        <li>Actions related to known cheat directories.</li>
+      </ul>
+    </li>
+    <li>Use the built‑in search (if available) to look for:
+      <ul>
+        <li>Known cheat names.</li>
+        <li>Loader names.</li>
+        <li>Keywords related to clients, macros, and injectors.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>Step 3 – Match LastActivityView entries to suspicious files</h4>
+  <ul>
+    <li>When you see an entry for a suspicious executable or archive:
+      <ul>
+        <li>Note the <strong>exact time</strong> of execution/opening.</li>
+        <li>Note the <strong>full path</strong> of the file.</li>
+        <li>Check whether this file also appeared in:
+          <ul>
+            <li>Prefetch output (for execution).</li>
+            <li>Browser downloads (for original download).</li>
+            <li>USN/OSForensics (for creation/modification).</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Check whether the LastActivityView execution time lines up with:
+      <ul>
+        <li>When they joined the server.</li>
+        <li>When they were recorded doing suspicious actions.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>Step 4 – Build a LastActivityView‑based POE chain</h4>
+  <ul>
+    <li>For each suspicious file, try to build a chain like:
+      <ul>
+        <li>Download (seen in browser).</li>
+        <li>File activity (seen in USN/OSForensics).</li>
+        <li>Execution (seen in LastActivityView).</li>
+        <li>Runtime traces (seen in Prefetch).</li>
+      </ul>
+    </li>
+    <li>When LastActivityView shows:
+      <ul>
+        <li>A cheat executable or loader being run just before/during suspicious gameplay, and</li>
+        <li>This event agrees with Prefetch and USN timelines,</li>
+      </ul>
+      treat this execution entry as a strong candidate POE item.</li>
+  </ul>
+
+  <h4>Step 5 – Document LastActivityView entries in your notes</h4>
+  <ul>
+    <li>In your SS notes, create a "LastActivityView" subsection and log:
+      <ul>
+        <li>Date/time of each suspicious execution.</li>
+        <li>File path and file name.</li>
+        <li>Relationship to gameplay (for example, "3 minutes before fight clip").</li>
+      </ul>
+    </li>
+    <li>For each POE candidate, explicitly write:
+      <ul>
+        <li>"POE (LastActivityView): [file] executed at [time], matching [clip / log time]."</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>Step 6 – Combine LastActivityView with other POE sources</h4>
+  <ul>
+    <li>Use LastActivityView execution entries alongside:
+      <ul>
+        <li>Prefetch entries for the same executable.</li>
+        <li>USN/OSForensics showing file creation or modification.</li>
+        <li>Browser downloads showing where it came from.</li>
+      </ul>
+    </li>
+    <li>When you can point to three separate sources (for example, Downloads + LastActivityView + Prefetch) all confirming the same cheat executable was downloaded and executed around the suspicious time, you have a solid 3‑POE case.</li>
+  </ul>
+
+  <h2 id="section-6">6. Decision and documentation</h2>
+
+  <ul>
+    <li>Base your decision strictly on:
+      <ul>
+        <li>Server rules on ban‑worthy behaviour.</li>
+        <li>Your evidence and 3‑POE reasoning.</li>
+      </ul>
+    </li>
+    <li>Document clearly:
+      <ul>
+        <li>Artifacts found (paths, names, outputs).</li>
+        <li>Why they show execution or why they don't.</li>
+        <li>Timestamps, screenshots and exported logs.</li>
+      </ul>
+    </li>
+    <li>If evidence is <strong>insufficient</strong>:
+      <ul>
+        <li>Do <strong>not</strong> force a ban; leave it as "no sufficient evidence".</li>
+      </ul>
+    </li>
+    <li>If evidence is <strong>sufficient</strong>:
+      <ul>
+        <li>Briefly tell the player (if allowed) what was found and what rule it breaks.</li>
+        <li>Forward everything (notes, logs, recording) to staff/higher‑ups.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>Use a standard format in staff channels, e.g.:
+      <ul>
+        <li>Player:</li>
+        <li>Date/Time:</li>
+        <li>SS Staff:</li>
+        <li>Summary:</li>
+        <li>Evidence list (POE 1/2/3):</li>
+        <li>Conclusion:</li>
+      </ul>
+    </li>
+    <li>Always attach or link the <strong>full recording</strong>.</li>
+    <li>Mention any <strong>limitations</strong> (USN truncated, browser cleared, etc.) so reviewers know the context.</li>
+  </ul>
+
+  <h2 id="section-7">7. Behaviour, privacy, and safety</h2>
+
+  <ul>
+    <li>Respect <strong>privacy</strong> and <strong>data policies</strong> at all times.</li>
+    <li>Avoid opening personal folders (photos, documents, banking) unless rules and necessity require it.</li>
+    <li>Keep all collected data secure and only share with relevant staff.</li>
+    <li>Use recordings to protect against false accusations and for training.</li>
+    <li>Never share sensitive findings publicly or with random players.</li>
+  </ul>
+
+  <p class="section-note">More detail:</p>
+  <ul>
+    <li>If you accidentally see obviously private content, move away immediately and avoid discussing details.</li>
+    <li>Use <strong>sanitized recordings</strong> for training so real private data is not shared.</li>
+    <li>Keep your own machine safe by only using trusted tools; avoid random downloads during SS work.</li>
+  </ul>
+
+  <h2 id="section-8">8. Phase 3 – heavy suspicion &amp; edge cases</h2>
+
+  <p>Use this when suspicion is strong but 3‑POE is not fully reached, or environment is very unusual.</p>
+
+  <h3>8.1 Re‑checking contradictions</h3>
+  <ul>
+    <li>Compare player claims vs. findings:
+      <ul>
+        <li>Claimed no cheats vs. obvious cheat traces.</li>
+        <li>Claimed no downloads vs. download history.</li>
+      </ul>
+    </li>
+    <li>Treat lies as <strong>signal</strong>, not as direct proof.</li>
+    <li>Write contradictions in notes with exact wording/time.</li>
+  </ul>
+
+  <h3>8.2 Timeline reconstruction</h3>
+  <ul>
+    <li>Build a simple <strong>timeline</strong>:
+      <ul>
+        <li>Report / clip time.</li>
+        <li>Download times.</li>
+        <li>Executable run times.</li>
+        <li>Creation/rename/delete events.</li>
+      </ul>
+    </li>
+    <li>Look for repeating <strong>patterns</strong> like "download → run → Join server" across multiple days.</li>
+  </ul>
+
+  <h3>8.3 Handling cleaned machines</h3>
+  <ul>
+    <li>If everything looks "too clean":
+      <ul>
+        <li>Look for signs of cleaning tools or mass deletion.</li>
+        <li>Note "heavily cleaned before SS" with what hints that.</li>
+      </ul>
+    </li>
+    <li>Follow server policy on how to treat <strong>suspicious pre‑SS cleaning</strong>.</li>
+  </ul>
+
+  <h3>8.4 When to stop</h3>
+  <ul>
+    <li>Do not dig forever; after a full procedure with no proof, accept that:
+      <ul>
+        <li>The player is either legit or using a bypass beyond your current method.</li>
+      </ul>
+    </li>
+    <li>Without valid proof by server standards, you <strong>cannot justify</strong> a ban.</li>
+    <li>Mark the SS as <strong>"no sufficient evidence"</strong> and store notes.</li>
+  </ul>
+
+  <h2 id="section-9">9. Communication templates</h2>
+
+  <h3>9.1 Start of SS</h3>
+  <blockquote>
+    <strong>Staff:</strong> Hey, this is a formal screenshare for [ServerName].<br>
+    I'm going to follow our standard SS procedure and record everything for both your safety and mine.<br>
+    Please cooperate fully and don't close anything unless I ask you to.
+  </blockquote>
+
+  <h3>9.2 If player refuses or stalls</h3>
+  <blockquote>
+    <strong>Staff:</strong> Refusing to cooperate or intentionally wasting time can be treated the same as failing a screenshare under our rules.<br>
+    I'll give you one more chance to cooperate; otherwise I have to follow the server's SS policy.
+  </blockquote>
+
+  <h3>9.3 When you find enough evidence</h3>
+  <blockquote>
+    <strong>Staff:</strong> I've found several pieces of evidence showing that cheats were run on this machine that break our server rules.<br>
+    I'm going to end the SS now, finalize my notes, and forward everything to the staff team.
+  </blockquote>
+
+  <h3>9.4 When you don't have enough evidence</h3>
+  <blockquote>
+    <strong>Staff:</strong> I'm not seeing enough here to prove cheating under our current SS rules.<br>
+    I'll mark this SS as "no sufficient evidence."<br>
+    This doesn't guarantee anything for the future, but for now I can't punish you based on this SS.
+  </blockquote>
+
+  <h2 id="section-10">10. Common mistakes for new ScreenSharers</h2>
+
+  <ul>
+    <li><strong>Tunnel vision on one tool</strong>
+      <ul>
+        <li>Only relying on a single viewer or folder.</li>
+        <li>Always cross‑check with multiple tools and sources.</li>
+      </ul>
+    </li>
+    <li><strong>Banning on presence, not execution</strong>
+      <ul>
+        <li>Banning just for an old client installed.</li>
+        <li>Focus on <strong>execution</strong>, unless rules say presence alone is enough.</li>
+      </ul>
+    </li>
+    <li><strong>Ignoring server rules</strong>
+      <ul>
+        <li>Applying personal standards instead of official policy.</li>
+        <li>Keep the SS and punishment policy open while working.</li>
+      </ul>
+    </li>
+    <li><strong>Poor note‑taking</strong>
+      <ul>
+        <li>Not writing down actions or findings.</li>
+        <li>Maintain a live notepad: times, tools, key artifacts, contradictions.</li>
+      </ul>
+    </li>
+    <li><strong>Over‑exploring private data</strong>
+      <ul>
+        <li>Opening irrelevant personal files or conversations.</li>
+        <li>Stick strictly to game‑/cheat‑related areas.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2 id="section-11">11. Suggested staff training workflow</h2>
+
+  <ul>
+    <li><strong>Step 1 – Shadowing</strong>
+      <ul>
+        <li>New staff quietly watch experienced SS sessions.</li>
+      </ul>
+    </li>
+    <li><strong>Step 2 – Volunteer practice</strong>
+      <ul>
+        <li>Full SS runs on willing staff/friends to practice the checklist.</li>
+      </ul>
+    </li>
+    <li><strong>Step 3 – Mock "planted cheat" cases</strong>
+      <ul>
+        <li>Simulated suspects with known cheat setups to train detection.</li>
+      </ul>
+    </li>
+    <li><strong>Step 4 – Review sessions</strong>
+      <ul>
+        <li>Leads review recordings, giving feedback on missed steps or issues.</li>
+      </ul>
+    </li>
+    <li><strong>Step 5 – Approval</strong>
+      <ul>
+        <li>Only after multiple successful, reviewed SS runs should new staff SS real players alone.</li>
+      </ul>
+    </li>
+  </ul>
+
+</div>
+</body>
+</html>
