@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AcousticVoid - Digital Forensics Investigator</title>
+  <meta name="description" content="Digital forensics investigator specializing in Windows artifact analysis, anti-cheat investigation, and incident response.">
+  <meta name="theme-color" content="#0b0e15">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1118;
+      --bg-soft: #131d29;
+      --panel: rgba(22, 32, 46, 0.88);
+      --panel-strong: #121b27;
+      --line: #2b3a4f;
+      --line-bright: #4b6788;
+      --text: #ebf4ff;
+      --muted: #9eb2cb;
+      --gold: #7ad7d0;
+      --green: #98d9b8;
+      --blue: #9bc7ff;
+      --purple: #b5a9ec;
+      --shadow: 0 14px 38px rgba(0, 0, 0, 0.32);
+      --radius: 16px;
+      --maxw: 1180px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Plus Jakarta Sans", Inter, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(980px 460px at 20% -10%, rgba(122, 215, 208, 0.11), transparent 62%),
+        radial-gradient(860px 420px at 90% 0%, rgba(181, 169, 236, 0.1), transparent 62%),
+        linear-gradient(180deg, #0b1118 0%, #0e1622 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgba(151, 167, 199, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(151, 167, 199, 0.05) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at center, black 30%, transparent 95%);
+      z-index: -1;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--maxw), calc(100% - 2rem)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(11, 14, 21, 0.83);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      min-height: 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .brand { font-weight: 700; letter-spacing: 0.04em; }
+    .brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: 0.55rem; flex-wrap: wrap; }
+    .nav-links a {
+      font-size: 0.78rem; color: var(--muted);
+      border: 1px solid transparent; border-radius: 999px;
+      padding: 0.28rem 0.66rem; transition: 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text); border-color: var(--line-bright); background: rgba(147, 184, 255, 0.08);
+    }
+    .status {
+      font-size: 0.7rem; color: var(--green);
+      border: 1px solid rgba(134, 202, 154, 0.4);
+      background: rgba(134, 202, 154, 0.1);
+      border-radius: 999px; padding: 0.24rem 0.62rem;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.38rem;
+    }
+    .status::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px rgba(134, 202, 154, 0.55);
+    }
+
+    .hero {
+      padding: 4.6rem 0 2.8rem;
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 1rem;
+    }
+    .glass {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--panel), rgba(17, 23, 40, 0.82));
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+    .intro { padding: 1.9rem; display: grid; gap: 1rem; position: relative; overflow: hidden; }
+    .intro::after {
+      content: "";
+      position: absolute; right: -120px; top: -80px;
+      width: 260px; height: 260px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(122, 215, 208, 0.16), transparent 70%);
+      pointer-events: none;
+    }
+    .pill {
+      width: fit-content; text-transform: uppercase; letter-spacing: 0.08em;
+      font-size: 0.68rem; color: var(--gold);
+      background: rgba(122, 215, 208, 0.12);
+      border: 1px solid rgba(122, 215, 208, 0.34);
+      padding: 0.26rem 0.64rem; border-radius: 999px;
+    }
+    h1 {
+      font-family: "Manrope", "Plus Jakarta Sans", sans-serif;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      text-shadow: 0 1px 20px rgba(147, 184, 255, 0.1);
+    }
+    h1 small { display: block; color: var(--muted); font-size: clamp(1.16rem, 2.8vw, 1.64rem); font-weight: 500; }
+    .typed {
+      color: var(--blue); font-size: 0.93rem; min-height: 1.35rem;
+      padding-left: 0.62rem; border-left: 2px solid rgba(147, 184, 255, 0.4);
+    }
+    .intro p { color: var(--muted); max-width: 62ch; }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .btn {
+      border: 1px solid var(--line); border-radius: 10px;
+      background: var(--panel-strong); color: var(--text);
+      padding: 0.62rem 1rem; cursor: pointer; font-size: 0.8rem; transition: 0.22s ease;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--line-bright);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+    }
+    .btn.primary { background: var(--gold); color: #0e1b20; border-color: rgba(122, 215, 208, 0.56); font-weight: 700; }
+
+    .terminal { overflow: hidden; display: grid; grid-template-rows: auto 1fr auto; }
+    .term-head, .term-foot {
+      padding: 0.74rem 0.95rem; font-size: 0.73rem; color: var(--muted);
+      background: var(--panel-strong); border-bottom: 1px solid var(--line);
+    }
+    .term-foot { border-bottom: none; border-top: 1px solid var(--line); display: flex; justify-content: space-between; }
+    .code {
+      padding: 1rem; font-family: Consolas, "Courier New", monospace; font-size: 0.78rem;
+      color: #acc8ff; display: grid; gap: 0.28rem;
+    }
+    .k { color: var(--gold); }
+    .v { color: #d6e4ff; }
+
+    .hero-badge {
+      position: absolute;
+      right: 1.1rem;
+      bottom: 1.1rem;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 1px solid rgba(151, 167, 199, 0.38);
+      background: linear-gradient(180deg, rgba(122, 215, 208, 0.16), rgba(17, 23, 40, 0.28));
+      display: grid;
+      place-items: center;
+      color: var(--blue);
+      box-shadow: inset 0 0 20px rgba(147, 184, 255, 0.1);
+      pointer-events: none;
+    }
+    .hero-badge svg {
+      width: 38px;
+      height: 38px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.6;
+      opacity: 0.9;
+    }
+
+    .stats { margin: 1rem 0 2.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem; }
+    .stat { padding: 0.95rem; text-align: center; }
+    .stat b { font-size: 1.65rem; line-height: 1.1; display: block; }
+    .stat span { font-size: 0.73rem; color: var(--muted); }
+
+    .study {
+      margin-bottom: 2.5rem; padding: 0.9rem; border-radius: var(--radius);
+      border: 1px solid rgba(181, 169, 236, 0.34);
+      background: rgba(181, 169, 236, 0.09);
+      display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;
+    }
+    .study em { font-style: normal; font-size: 0.7rem; color: var(--purple); letter-spacing: 0.07em; text-transform: uppercase; margin-right: 0.4rem; }
+    .chip {
+      border: 1px solid var(--line); background: rgba(17, 23, 40, 0.85); border-radius: 999px;
+      color: var(--muted); font-size: 0.72rem; padding: 0.23rem 0.54rem;
+    }
+
+    section { margin-bottom: 2.45rem; }
+    .section-head {
+      margin-bottom: 1.15rem; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+      border-bottom: 1px dashed rgba(151, 167, 199, 0.28); padding-bottom: 0.55rem;
+    }
+    .title {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .title svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--blue);
+      fill: none;
+      stroke-width: 1.8;
+      opacity: 0.95;
+    }
+    .section-head h2 { font-size: 1.18rem; letter-spacing: 0.03em; }
+    .section-head span { color: var(--muted); font-size: 0.74rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.72rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.72rem; }
+    .card { padding: 1.08rem; transition: 0.22s ease; }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--line-bright);
+      background: rgba(20, 28, 43, 0.97);
+      box-shadow: 0 16px 26px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    .sub { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.32rem; }
+    .card h3 { font-size: 0.95rem; margin-bottom: 0.45rem; }
+    .card p { color: var(--muted); font-size: 0.85rem; }
+    .tags { margin-top: 0.65rem; display: flex; flex-wrap: wrap; gap: 0.34rem; }
+    .tags .chip { font-size: 0.67rem; }
+
+    .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 0.72rem; }
+    .contact .card p { margin-bottom: 0.8rem; }
+    .discord {
+      display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem;
+      color: #d7ecff; background: rgba(122, 215, 208, 0.13);
+      border: 1px solid rgba(122, 215, 208, 0.34);
+      border-radius: 10px; padding: 0.55rem 0.8rem;
+      transition: 0.22s ease;
+    }
+    .discord:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+    }
+
+    footer {
+      margin: 0.8rem 0 2rem; padding-top: 0.95rem; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.6rem;
+      color: var(--muted); font-size: 0.73rem;
+    }
+    .reveal { opacity: 0; transform: translateY(8px); transition: opacity 0.24s ease, transform 0.24s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 990px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+      .stats { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 730px) {
+      .nav-links, .status { display: none; }
+      .wrap { width: min(var(--maxw), calc(100% - 1rem)); }
+      .grid-3, .grid-2, .contact { grid-template-columns: 1fr; }
+      .intro, .code, .card { padding: 1rem; }
+      .btn { padding: 0.72rem 1.02rem; }
+      .chip { font-size: 0.76rem; padding: 0.28rem 0.62rem; }
+      .card p { font-size: 0.9rem; line-height: 1.7; }
+      .hero-badge { width: 64px; height: 64px; right: 0.9rem; bottom: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#">Acoustic<span>Void</span></a>
+      <nav class="nav-links">
+        <a href="#positions" data-s="positions">Positions</a>
+        <a href="#expertise" data-s="expertise">Expertise</a>
+        <a href="#focus" data-s="focus">Focus</a>
+        <a href="#contact" data-s="contact">Contact</a>
+      </nav>
+      <div class="status">Available for Enquiries</div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero reveal">
+      <article class="glass intro">
+        <div class="pill">Digital Forensics Investigator</div>
+        <h1>Acoustic<small>Void</small></h1>
+        <div class="typed" id="typed"></div>
+        <p>
+          Specializing in <strong>Windows forensic artifact analysis</strong>, live system investigation, and detection of cheat execution methods and anti-forensic behavior.
+          3+ years of operational experience, expanding further into <strong>DFIR and incident investigation</strong>.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#positions">View Positions</a>
+          <a class="btn" href="#contact">Get in Touch</a>
+        </div>
+        <div class="hero-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3 L20 8 V16 L12 21 L4 16 V8 Z"></path>
+            <path d="M8.5 11.5 L11 14 L15.5 9.5"></path>
+          </svg>
+        </div>
+      </article>
+
+      <aside class="glass terminal">
+        <div class="term-head">profile.json</div>
+        <div class="code">
+          <div>{</div>
+          <div>&nbsp;&nbsp;<span class="k">"handle"</span>: <span class="v">"AcousticVoid"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="k">"field"</span>: <span class="v">"Digital Forensics"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="k">"experience"</span>: <span class="v">"3+ years"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="k">"positions"</span>: <span class="v">"5+"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="k">"specialisms"</span>: [<span class="v">"Artifact Analysis"</span>, <span class="v">"Anti-Cheat Investigation"</span>, <span class="v">"Anti-Forensic Detection"</span>, <span class="v">"DFIR"</span>],</div>
+          <div>&nbsp;&nbsp;<span class="k">"status"</span>: <span class="v">"active"</span></div>
+          <div>}</div>
+        </div>
+        <div class="term-foot"><span>UTF-8 / JSON</span><span style="color: var(--green);">ACTIVE</span></div>
+      </aside>
+    </section>
+
+    <section class="stats reveal">
+      <div class="glass stat"><b>3+</b><span>Years in Field</span></div>
+      <div class="glass stat"><b>5+</b><span>Active Positions</span></div>
+      <div class="glass stat"><b>∞</b><span>Artifacts Analysed</span></div>
+      <div class="glass stat"><b>0</b><span>Cases Unsolved</span></div>
+    </section>
+
+    <section class="study reveal">
+      <em>Currently Studying</em>
+      <span class="chip">CompTIA Security+</span>
+      <span class="chip">Memory Forensics</span>
+      <span class="chip">DFIR Methodology</span>
+      <span class="chip">System Internals</span>
+      <span class="chip">Cyber Security</span>
+    </section>
+
+    <section id="positions" class="reveal">
+      <div class="section-head">
+        <h2 class="title">
+          <svg viewBox="0 0 24 24"><path d="M4 7 H20 M8 7 V5 H16 V7 M6 7 V18 H18 V7"></path></svg>
+          Current Positions
+        </h2>
+        <span>01</span>
+      </div>
+      <div class="grid-3">
+        <article class="glass card"><div class="sub">Detect.ac</div><h3>PC Checker</h3><p>Conducting live system reviews to identify cheat software, suspicious artifacts, and anti-forensic modifications. Applying digital forensics methodology to real-time investigations against players suspected of unauthorized software usage.</p><div class="tags"><span class="chip">Active</span></div></article>
+        <article class="glass card"><div class="sub">Screenshare Community</div><h3>Lead Screensharer</h3><p>Leading front-line screenshare investigations, setting investigation standards, and ensuring methodological consistency across review sessions. First responder for escalated or complex cases.</p><div class="tags"><span class="chip">Active</span></div></article>
+        <article class="glass card"><div class="sub">Screenshare Community</div><h3>Staff Supervisor</h3><p>Overseeing staff operations, conducting investigator training sessions, and maintaining quality standards. Developing investigation protocols and mentoring junior screensharers in forensic technique.</p><div class="tags"><span class="chip">Active</span></div></article>
+      </div>
+    </section>
+
+    <section id="expertise" class="reveal">
+      <div class="section-head">
+        <h2 class="title">
+          <svg viewBox="0 0 24 24"><path d="M12 3 L20 8 V16 L12 21 L4 16 V8 Z M12 8 V16 M8 10 L12 8 L16 10"></path></svg>
+          Expertise Stack
+        </h2>
+        <span>02</span>
+      </div>
+      <div class="grid-3">
+        <article class="glass card"><h3>Windows Forensics</h3><div class="tags"><span class="chip">Registry Hives</span><span class="chip">Prefetch</span><span class="chip">Amcache</span><span class="chip">Shimcache</span><span class="chip">Shellbags</span><span class="chip">LNK Files</span><span class="chip">JumpLists</span><span class="chip">MFT Analysis</span></div></article>
+        <article class="glass card"><h3>Artifact Analysis</h3><div class="tags"><span class="chip">Event Logs</span><span class="chip">USN Journal</span><span class="chip">SRUM</span><span class="chip">BAM / DAM</span><span class="chip">Timeline Analysis</span><span class="chip">File Metadata</span></div></article>
+        <article class="glass card"><h3>Anti-Forensics Detection</h3><div class="tags"><span class="chip">Evidence Wiping</span><span class="chip">Timestamp Manipulation</span><span class="chip">Log Clearing</span><span class="chip">Artifact Removal</span><span class="chip">Obfuscation</span></div></article>
+        <article class="glass card"><h3>Anti-Cheat Investigation</h3><div class="tags"><span class="chip">Cheat Identification</span><span class="chip">Execution Methods</span><span class="chip">Injection Techniques</span><span class="chip">Ghost Cheats</span><span class="chip">SS Evasion</span></div></article>
+        <article class="glass card"><h3>Forensic Tooling</h3><div class="tags"><span class="chip">FTK Imager</span><span class="chip">Autopsy</span><span class="chip">RegRipper</span><span class="chip">Volatility</span><span class="chip">Process Monitor</span><span class="chip">Sysinternals</span></div></article>
+        <article class="glass card"><h3>Leadership and Training</h3><div class="tags"><span class="chip">Live System Review</span><span class="chip">Case Documentation</span><span class="chip">Staff Training</span><span class="chip">Protocol Development</span><span class="chip">IR</span></div></article>
+      </div>
+    </section>
+
+    <section id="focus" class="reveal">
+      <div class="section-head">
+        <h2 class="title">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+          Areas of Focus
+        </h2>
+        <span>03</span>
+      </div>
+      <div class="grid-2">
+        <article class="glass card"><h3>Windows Forensic Artifact Analysis</h3><p>Deep examination of system artifacts including registry hives, prefetch files, event logs, and NTFS structures to reconstruct execution timelines.</p></article>
+        <article class="glass card"><h3>Cheat Execution Method Identification</h3><p>Detecting how unauthorized software is deployed, injected, and concealed during live screenshare investigations.</p></article>
+        <article class="glass card"><h3>Anti-Forensic Behavior Detection</h3><p>Identifying attempts to tamper with, conceal, or destroy digital evidence during or before a live investigation session.</p></article>
+        <article class="glass card"><h3>DFIR and Incident Investigation</h3><p>Expanding expertise into Digital Forensics and Incident Response, including memory forensics, system internals, and investigative frameworks.</p></article>
+        <article class="glass card"><h3>Staff Training and Oversight</h3><p>Developing structured training programs for screenshare investigators and standardizing methodology across teams.</p></article>
+        <article class="glass card"><h3>Continuous Professional Development</h3><p>Actively studying cybersecurity, DFIR methodologies, forensic tooling, and system internals to expand investigative capability.</p></article>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <div class="section-head">
+        <h2 class="title">
+          <svg viewBox="0 0 24 24"><path d="M4 6 H20 V18 H4 Z M4 7 L12 13 L20 7"></path></svg>
+          Contact and Enquiries
+        </h2>
+        <span>04</span>
+      </div>
+      <div class="contact">
+        <article class="glass card">
+          <h3>Available for Enquiries</h3>
+          <p>Whether you are looking to bring on an experienced PC checker, need an investigator for your community, or want to discuss digital forensics and anti-cheat methodology, reach out directly on Discord.</p>
+          <a class="discord" target="_blank" rel="noopener noreferrer" href="https://discord.gg/kb8X9dvUrW">Join Acoustic SS Server</a>
+        </article>
+        <article class="glass card">
+          <h3>Direct Username</h3>
+          <p>Copy the username and message directly on Discord.</p>
+          <button class="btn" id="copyBtn">Copy username (piespeas)</button>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <span>AcousticVoid</span>
+      <span>DFIR / PC Investigation / Anti-Cheat</span>
+    </footer>
+  </main>
+
+  <script>
+    const typedEl = document.getElementById("typed");
+    const phrases = [
+      "PC Checker / DFIR Analyst / Anti-Cheat Investigator",
+      "Windows Forensics / Artifact Analysis / Live Investigation",
+      "Lead Screensharer / Staff Supervisor / Detect.ac"
+    ];
+    let i = 0, n = 0, deleting = false;
+    function typeTick() {
+      const current = phrases[i];
+      n += deleting ? -1 : 1;
+      typedEl.textContent = current.slice(0, n);
+      if (!deleting && n === current.length) {
+        deleting = true;
+        setTimeout(typeTick, 1400);
+        return;
+      }
+      if (deleting && n === 0) {
+        deleting = false;
+        i = (i + 1) % phrases.length;
+      }
+      setTimeout(typeTick, deleting ? 26 : 42);
+    }
+    typeTick();
+
+    const copyBtn = document.getElementById("copyBtn");
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText("piespeas");
+        copyBtn.textContent = "Copied: piespeas";
+      } catch {
+        copyBtn.textContent = "Copy failed";
+      }
+      setTimeout(() => {
+        copyBtn.textContent = "Copy username (piespeas)";
+      }, 1700);
+    });
+
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+
+    const sections = ["positions", "expertise", "focus", "contact"];
+    const navLinks = document.querySelectorAll(".nav-links a[data-s]");
+    window.addEventListener("scroll", () => {
+      let active = "";
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 120) active = id;
+      });
+      navLinks.forEach(link => link.classList.toggle("active", link.dataset.s === active));
+    }, { passive: true });
+  </script>
+</body>
+</html>
