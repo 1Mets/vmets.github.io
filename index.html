@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AcousticVoid - Digital Forensics Investigator</title>
+  <title>vMets - Digital Forensics Investigator</title>
   <meta name="description" content="Digital forensics investigator specializing in Windows artifact analysis, anti-cheat investigation, and incident response.">
   <meta name="theme-color" content="#0b0e15">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -313,7 +313,7 @@
         <div class="term-head">profile.json</div>
         <div class="code">
           <div>{</div>
-          <div>&nbsp;&nbsp;<span class="k">"handle"</span>: <span class="v">"AcousticVoid"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="k">"handle"</span>: <span class="v">"vMets"</span>,</div>
           <div>&nbsp;&nbsp;<span class="k">"field"</span>: <span class="v">"Digital Forensics"</span>,</div>
           <div>&nbsp;&nbsp;<span class="k">"experience"</span>: <span class="v">"3+ years"</span>,</div>
           <div>&nbsp;&nbsp;<span class="k">"positions"</span>: <span class="v">"5+"</span>,</div>
@@ -409,13 +409,13 @@
         <article class="glass card">
           <h3>Direct Username</h3>
           <p>Copy the username and message directly on Discord.</p>
-          <button class="btn" id="copyBtn">Copy username (piespeas)</button>
+          <button class="btn" id="copyBtn">Copy username (metsv)</button>
         </article>
       </div>
     </section>
 
     <footer>
-      <span>AcousticVoid</span>
+      <span>vMets</span>
       <span>DFIR / PC Investigation / Anti-Cheat</span>
     </footer>
   </main>
@@ -448,13 +448,13 @@
     const copyBtn = document.getElementById("copyBtn");
     copyBtn.addEventListener("click", async () => {
       try {
-        await navigator.clipboard.writeText("piespeas");
-        copyBtn.textContent = "Copied: piespeas";
+        await navigator.clipboard.writeText("metsv");
+        copyBtn.textContent = "Copied: metsv";
       } catch {
         copyBtn.textContent = "Copy failed";
       }
       setTimeout(() => {
-        copyBtn.textContent = "Copy username (piespeas)";
+        copyBtn.textContent = "Copy username (metsv)";
       }, 1700);
     });
 
